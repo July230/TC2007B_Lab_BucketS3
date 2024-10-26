@@ -12,13 +12,48 @@ const port = process.env.PORT || 3000;
 
 const log = console.log;
 
+// La siguiente definición carga la librería de multer y especifica que el destino del archivo sea la carpeta pública
+var storage = multer.diskStorage({
+  destination: function (req, file, callback) {
+    callback(null, "./public/");
+  },
+
+  filename: function (req, file, callback) {
+    return callback(null, file.originalname);
+  },
+});
+
 app.get("/", (req, res) => {
   res.sendFile("index.html", { root: __dirname });
 });
 
 app.post("/upload_file", function (req, res) {
   log("Cargando el archivo");
-  res.status(200).json({ code: 200, msg: "Ok" });
+  // Se llama la configuración de multer, se recibe un arreglo de archivos que vienen de el index.html
+  // El string 'file' es el id que otorgamos en el formulario al input en su propiedad de name
+  var upload = multer({ storage: storage }).array("file", 1);
+
+  upload(req, res, function (err) {
+    //log(req.body);
+
+    //log(req.files);
+
+    if (err) {
+      log(err);
+
+      return res.end("Error uploading file.");
+    }
+
+    // Al llamar req.files[0] lo que estamos haciendo es llamar al archivo según hayamos subido
+    // Aunque sea 1 sabemos que el primero será el de la posición 0.
+    var pathDest = req.files[0].destination.slice(1);
+
+    var finalPath = path.join(__dirname, "../../" + pathDest);
+
+    log(finalPath);
+
+    res.status(200).json({ code: 200, msg: "Ok" });
+  });
 });
 
 app.listen(port, () => {
