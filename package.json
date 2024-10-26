@@ -1,0 +1,19 @@
+{
+  "name": "tc2007b_lab_buckets3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/July230/TC2007B_Lab_BucketS3.git"
+  },
+  "author": "Julian",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/July230/TC2007B_Lab_BucketS3/issues"
+  },
+  "homepage": "https://github.com/July230/TC2007B_Lab_BucketS3#readme"
+}
