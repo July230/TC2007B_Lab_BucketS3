@@ -90,6 +90,16 @@ app.post("/upload_file_private", function (req, res) {
   });
 });
 
+// No podemos dar acceso público a los archivos privados, pero podemos dar un acceso a través de una URL.
+
+// Este es el proceso de control ya que al dar acceso mediante URL podemos agregar tanto procesamiento
+// Adicional al archivo en caso de ser necesario o en su defecto protegerlo con el sistema de autenticación que definamos para el API.
+// Con res.sendFile podemos interpretar un archivo y cargarlo del lado del cliente.
+app.get("/get_private_file/:file", function (req, res) {
+  var fileName = req.params.file;
+  res.sendFile(path.join(__dirname, "./private", fileName));
+});
+
 app.listen(port, () => {
   //server starts listening for any attempts from a client to connect at port: {port}
   console.log(`Now listening on port ${port}`);
