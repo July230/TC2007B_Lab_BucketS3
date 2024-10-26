@@ -23,6 +23,15 @@ var storage = multer.diskStorage({
   },
 });
 
+var storage2 = multer.diskStorage({
+  destination: function (req, file, callback) {
+    callback(null, "./private/");
+  },
+
+  filename: function (req, file, callback) {
+    return callback(null, file.originalname);
+  },
+});
 app.get("/", (req, res) => {
   res.sendFile("index.html", { root: __dirname });
 });
@@ -64,7 +73,21 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.post("/upload_file_private", function (req, res) {
   log("Cargando el archivo");
-  res.status(200).json({ code: 200, msg: "Ok" });
+  var upload = multer({ storage: storage2 }).array("file", 1);
+  upload(req, res, function (err) {
+    //log(req.body);
+    //log(req.files);
+
+    if (err) {
+      log(err);
+      return res.end("Error uploading file.");
+    }
+
+    var pathDest = req.files[0].destination.slice(1);
+    var finalPath = path.join(__dirname, "../../" + pathDest);
+    log(finalPath);
+    res.status(200).json({ code: 200, msg: "Ok" });
+  });
 });
 
 app.listen(port, () => {
