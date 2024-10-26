@@ -16,6 +16,11 @@ app.get("/", (req, res) => {
   res.sendFile("index.html", { root: __dirname });
 });
 
+app.post("/upload_file", function (req, res) {
+  log("Cargando el archivo");
+  res.status(200).json({ code: 200, msg: "Ok" });
+});
+
 app.listen(port, () => {
   //server starts listening for any attempts from a client to connect at port: {port}
   console.log(`Now listening on port ${port}`);
