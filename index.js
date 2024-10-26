@@ -56,6 +56,12 @@ app.post("/upload_file", function (req, res) {
   });
 });
 
+// Por default la carpeta public expone los archivos dentro de esta carpeta
+// Por lo general son imágenes genéricas, templates de html, css, archivos js entre otros.
+// Para acceder a un archivo dentro de public: dominio/ruta_desde_public
+app.use(express.static(path.join(__dirname, "public")));
+// http://localhost:PUERTO/IMAGEN.png para acceder a las imagenes en la carpeta public
+
 app.listen(port, () => {
   //server starts listening for any attempts from a client to connect at port: {port}
   console.log(`Now listening on port ${port}`);
