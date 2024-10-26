@@ -8,7 +8,7 @@ var path = require("path");
 
 const app = express();
 
-const port = 5000;
+const port = process.env.PORT || 3000;
 
 const log = console.log;
 
