@@ -62,6 +62,11 @@ app.post("/upload_file", function (req, res) {
 app.use(express.static(path.join(__dirname, "public")));
 // http://localhost:PUERTO/IMAGEN.png para acceder a las imagenes en la carpeta public
 
+app.post("/upload_file_private", function (req, res) {
+  log("Cargando el archivo");
+  res.status(200).json({ code: 200, msg: "Ok" });
+});
+
 app.listen(port, () => {
   //server starts listening for any attempts from a client to connect at port: {port}
   console.log(`Now listening on port ${port}`);
