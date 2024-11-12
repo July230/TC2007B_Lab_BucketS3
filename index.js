@@ -6,6 +6,8 @@ const multer = require("multer");
 
 var path = require("path");
 
+const mongoose = require("mongoose");
+
 const app = express();
 
 const port = process.env.PORT || 3000;
@@ -32,10 +34,17 @@ var storage2 = multer.diskStorage({
     return callback(null, file.originalname);
   },
 });
+
+/* Peticiones GET */
 app.get("/", (req, res) => {
   res.sendFile("index.html", { root: __dirname });
 });
 
+app.get("/raiz", (req, res) => {
+  res.send("Hello World");
+});
+
+/* Peticiones POST */
 app.post("/upload_file", function (req, res) {
   log("Cargando el archivo");
   // Se llama la configuración de multer, se recibe un arreglo de archivos que vienen de el index.html
