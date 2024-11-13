@@ -35,14 +35,19 @@ var storage2 = multer.diskStorage({
   },
 });
 
+/* Establecer motor de templates */
+app.set("view engine", "ejs")
+
+app.use("", require("./routes/routes"))
+
 /* Peticiones GET */
 app.get("/", (req, res) => {
   res.sendFile("index.html", { root: __dirname });
 });
 
-app.get("/raiz", (req, res) => {
-  res.send("Hello World");
-});
+// app.get("/raiz", (req, res) => {
+//  res.send("Hello World");
+// });
 
 /* Peticiones POST */
 app.post("/upload_file", function (req, res) {
